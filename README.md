@@ -266,20 +266,6 @@ This project demonstrates:
 
 ---
 
-## Screenshots
-
-Add screenshots of:
-
-* Home Page
-* Property Details Page
-* Login & Signup
-* Host Dashboard
-* Add Property Form
-* Favourites Page
-* Bookings Page
-
----
-
 ## Author
 
 **Chaitanya More**
