@@ -1,0 +1,12 @@
+<!-- Validation Errors -->
+<% if (errorMessages && errorMessages.length > 0) { %>
+<div
+  class="mb-6 bg-red-50 border border-red-300 text-red-700 px-4 py-3 rounded-xl"
+>
+  <ul class="list-disc list-inside">
+    <% errorMessages.forEach(error => { %>
+      <li><%= error %></li>
+    <% }); %>
+  </ul>
+</div>
+<% } %>

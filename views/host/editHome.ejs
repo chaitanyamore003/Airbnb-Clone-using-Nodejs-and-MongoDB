@@ -1,0 +1,234 @@
+<%- include('../partials/head') %>
+
+<body class="bg-gray-50">
+  <%- include('../partials/nav') %>
+
+  <main class="max-w-6xl mx-auto px-6 py-10">
+
+    <!-- Header -->
+    <div class="mb-8">
+      <h1 class="text-4xl font-bold text-gray-900">
+        Edit Property
+      </h1>
+
+      <p class="text-gray-500 mt-2">
+        Update your property information and keep your listing accurate.
+      </p>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-10">
+
+      <!-- Form Section -->
+      <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
+
+        <%- include('../partials/errors') %>
+
+        <form
+          action="/host/edit-home"
+          method="POST"
+          enctype="multipart/form-data"
+          class="space-y-6"
+        >
+
+          <input
+            type="hidden"
+            name="_id"
+            value="<%= home._id %>"
+          />
+
+          <!-- Property Name -->
+          <div>
+            <label
+              for="name"
+              class="block text-sm font-semibold text-gray-700 mb-2"
+            >
+              Property Name
+            </label>
+
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value="<%= oldInput?.name || home.name %>"
+              class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#eb4c60]"
+              required
+            >
+          </div>
+
+          <!-- Price -->
+          <div>
+            <label
+              for="price"
+              class="block text-sm font-semibold text-gray-700 mb-2"
+            >
+              Price Per Night (₹)
+            </label>
+
+            <input
+              type="number"
+              id="price"
+              name="price"
+              value="<%= oldInput?.price || home.price %>"
+              class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#eb4c60]"
+              required
+            >
+          </div>
+
+          <!-- Location -->
+          <div>
+            <label
+              for="location"
+              class="block text-sm font-semibold text-gray-700 mb-2"
+            >
+              Location
+            </label>
+
+            <input
+              type="text"
+              id="location"
+              name="location"
+              value="<%= oldInput?.location || home.location %>"
+              class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#eb4c60]"
+              required
+            >
+          </div>
+
+          <!-- Description -->
+          <div>
+            <label
+              for="description"
+              class="block text-sm font-semibold text-gray-700 mb-2"
+            >
+              Description
+            </label>
+
+            <textarea
+              id="description"
+              name="description"
+              rows="5"
+              class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#eb4c60] resize-none"
+              placeholder="Describe your property..."
+            ><%= oldInput?.description || home.description %></textarea>
+          </div>
+
+          <!-- Rating -->
+          <div>
+            <label
+              for="rating"
+              class="block text-sm font-semibold text-gray-700 mb-2"
+            >
+              Rating
+            </label>
+
+            <input
+              type="number"
+              id="rating"
+              name="rating"
+              min="1"
+              max="5"
+              step="0.1"
+              value="<%= oldInput?.rating || home.rating %>"
+              class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#eb4c60]"
+            >
+          </div>
+
+          <!-- Property Images -->
+          <div>
+            <label
+              for="photo"
+              class="block text-sm font-semibold text-gray-700 mb-2"
+            >
+              Property Images
+            </label>
+
+            <input
+              type="file"
+              id="photo"
+              name="photo"
+              accept="image/*"
+              class="w-full rounded-xl border border-gray-300 px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-[#eb4c60]"
+            />
+
+            <p class="mt-2 text-xs text-gray-500">
+              Upload a new image only if you want to replace the current one.
+            </p>
+          </div>
+
+          <!-- Actions -->
+          <div class="flex gap-4 pt-4">
+
+            <button
+              type="submit"
+              class="flex-1 bg-[#eb4c60] hover:bg-[#d93f52] text-white font-semibold py-3 rounded-xl transition"
+            >
+              Save Changes
+            </button>
+
+            <a
+              href="/host/host-homes-list"
+              class="flex-1 text-center border border-gray-300 hover:border-gray-400 py-3 rounded-xl font-medium text-gray-700 transition"
+            >
+              Cancel
+            </a>
+
+          </div>
+
+        </form>
+
+      </div>
+
+      <!-- Preview Section -->
+      <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-6">
+
+        <h2 class="text-2xl font-semibold mb-5">
+          Property Preview
+        </h2>
+
+        <div class="overflow-hidden rounded-2xl mb-5">
+          <img
+            src="<%= home.photo %>"
+            alt="<%= home.name %>"
+            class="w-full h-[350px] object-cover"
+          >
+        </div>
+
+        <h3 class="text-2xl font-bold text-gray-900">
+          <%= home.name %>
+        </h3>
+
+        <p class="text-gray-500 mt-2">
+          📍 <%= home.location %>
+        </p>
+
+        <div class="mt-5">
+          <h4 class="font-semibold text-gray-900 mb-2">
+            About this property
+          </h4>
+
+          <p class="text-gray-600 leading-relaxed">
+            <%= home.description %>
+          </p>
+        </div>
+
+        <div class="flex items-center justify-between mt-6">
+
+          <p class="text-3xl font-bold">
+            ₹<%= home.price %>
+            <span class="text-sm text-gray-500 font-normal">
+              / night
+            </span>
+          </p>
+
+          <span class="text-yellow-500 font-semibold">
+            ⭐ <%= home.rating %>
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+</body>
+</html>

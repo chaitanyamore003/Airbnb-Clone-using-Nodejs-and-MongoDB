@@ -1,0 +1,109 @@
+<!-- Header -->
+<header class="bg-[#ff385c] text-white shadow-md">
+  <nav class="container mx-auto flex items-center justify-between h-16 px-6">
+
+    <!-- Logo -->
+    <div class="flex items-center space-x-2">
+      <img
+        src="/images/air_bnb_logo.jpg"
+        alt="Airbnb logo"
+        class="h-9 w-9 rounded-full"
+      />
+      <a href="/">
+        <span class="text-2xl font-semibold tracking-wide font-mono">
+          airbnb
+        </span>
+      </a>
+    </div>
+
+    <!-- Search Bar -->
+    <div
+      class="flex items-center bg-white rounded-full shadow-md overflow-hidden w-96 h-11"
+    >
+      <input
+        type="text"
+        name="searchBar"
+        placeholder="Search for homes..."
+        class="flex-grow px-4 py-2 text-gray-800 text-base focus:outline-none"
+      />
+      <button
+        type="submit"
+        class="bg-[#ff385c] hover:bg-[#e63250] text-white px-4 py-2 text-sm font-semibold h-full transition-all duration-200"
+      >
+        Search
+      </button>
+    </div>
+
+    <ul class="hidden md:flex items-center space-x-4 text-lg">
+
+      <% if (isLoggedIn && user) { %>
+
+        <% if (user.userType === 'host') { %>
+
+          <li>
+            <a
+              href="/host/add-home"
+              class="hover:text-gray-200 transition font-semibold py-3 px-4 rounded-xl <%= currentPage === 'addHome' ? 'bg-white text-[#eb4c60]' : '' %>"
+            >
+              Add Home
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="/host/host-homes-list"
+              class="hover:text-gray-200 transition font-semibold py-3 px-4 rounded-xl <%= currentPage === 'hostHomes' ? 'bg-white text-[#eb4c60]' : '' %>"
+            >
+              Host Homes
+            </a>
+          </li>
+
+        <% } else { %>
+
+          <li>
+            <a
+              href="/bookings"
+              class="hover:text-gray-200 transition font-semibold py-3 px-4 rounded-xl <%= currentPage === 'bookings' ? 'bg-white text-[#eb4c60]' : '' %>"
+            >
+              Bookings
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="/favourites"
+              class="hover:text-gray-200 transition font-semibold py-3 px-4 rounded-xl <%= currentPage === 'favourites' ? 'bg-white text-[#eb4c60]' : '' %>"
+            >
+              Favourites
+            </a>
+          </li>
+
+        <% } %>
+
+        <li>
+          <form action="/logout" method="POST">
+            <button
+              type="submit"
+              class="border border-white text-white px-5 py-2 rounded-full font-medium hover:bg-white hover:text-[#eb4c60] transition duration-200"
+            >
+              Logout
+            </button>
+          </form>
+        </li>
+
+      <% } else { %>
+
+        <li>
+          <a
+            href="/login"
+            class="border border-white text-white px-5 py-2 rounded-full font-medium hover:bg-white hover:text-[#eb4c60] transition duration-200"
+          >
+            Login
+          </a>
+        </li>
+
+      <% } %>
+
+    </ul>
+  </nav>
+</header>
